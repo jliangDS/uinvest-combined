@@ -1,0 +1,205 @@
+<html>
+    <head>
+        <style>
+            .div{
+                border-bottom: 1px dotted blue;
+            }
+            #over-menu{
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr 1fr 1fr
+            }
+            #container{
+                display: none;
+            }
+            #canvas{
+                display: none;
+            }
+            #menu{
+                grid-column: 2 / span 3;
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                justify-items: center;
+                align-items: center;
+                border-bottom: 1px dotted blue;
+                border-left: 1px dotted blue;
+                border-right: 1px dotted blue;
+            }
+            #main{
+                grid-column: 1;
+            }
+            #specificD{
+                grid-column: 2;
+            }
+            #portfolio{
+                grid-column: 3
+            }
+            #time-period{
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr ;
+                grid-template-rows: 1fr ;
+                border: 1px dotted pink;
+                justify-items: center;
+                align-items: center;
+                margin:  0% 20% ;
+            }
+            #oneD{
+                grid-column: 1;
+            }
+            #fiveD{
+                grid-column: 2;
+            }
+           
+            #oneM{
+                grid-column: 3;
+            }
+            #sixM{
+                grid-column: 4;
+            }
+            #oneY{
+                grid-column: 5;
+            }
+            #fiveY{
+                grid-column: 6;
+            }
+            .time-selector{
+                border: 1px solid grey;
+            }
+            #chart-area{
+                text-align: center;
+                border: 1px dotted purple;
+            }
+            #userNameShow{
+                grid-column: 1;
+            }
+            #signupArea{
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr 1fr;
+                grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+                margin: 5%;
+                border: 1px solid green;
+                
+                
+            }
+            #login{
+                grid-column: 2;
+                grid-row: 3;
+                justify-self: center;
+                text-align: center;
+            }
+​
+            .form{
+                text-align: center;
+            }
+            
+            
+​
+​
+            #chartdiv {
+      width: 100%;
+      height: 500px;
+    }
+​
+        </style>
+         <script src="https://www.amcharts.com/lib/4/core.js"></script>
+         <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+         <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div id = "over-menu">
+            <h2 id = "userNameShow">Hello, Visitor</h2>
+            <div id = "menu">
+                <h2 id = "main">Main</h2>
+                <h2 id = "specificD">Stock Lookup</h2>
+                <h2 id = "portfolio">Portfolio</h2>
+            </div>
+        </div>
+
+
+        
+        <div id = "signupArea">
+            <h1 id = "login">Login</h1>
+            <div class = "form">
+                <input id = "username" type="text" placeholder="Username">
+                <br>
+                <input id = "password" type="text" placeholder="Password">
+                <br>
+                <input id = "submit-for-login" type="submit" value = "Submit"> 
+            </div>   
+        </div>
+            
+        
+        
+​
+        <div id = "content-head">
+            <h1 id = "stock-name"></h1>
+            <h2 id = "trade-day"></h2>
+            <h2 id = "current-price"></h2>
+            <h2 id = "previous-close"></h2>
+        </div>
+
+        <div id = "container" style="display: block;">
+            <canvas id="canvas">Canvas is not supported in your browser.</canvas>
+        </div>
+​
+        <div id ="time-period">
+                <h3 id = "fiveD" class = "time-selector">5D</h3>
+                <h3 id = "oneM" class = "time-selector">1M</h3>
+                <h3 id ="sixM" class = "time-selector">6M</h3>
+                <h3 id ="oneY" class = "time-selector">1Y</h3>
+                <h3 id = "fiveY" class = "time-selector">5Y</h3>
+        </div>
+​
+        <div id = "stock-to-lookup-form">
+            
+                <input id = "stock-to-lookup" type = "text" placeholder = "Ticker Symbol"/>
+                <select id = "time">
+                    <option value = "5 Days" >5 Days</option>
+                    <option value = "1 Month" >1 Month</option>
+                    <option value = "6 Months" >6 Months</option>
+                    <option value = "1 Year" >1 Year</option>
+                    <option value = "Max" >Max</option>
+                </select>
+                <input id = "submit-for-stock-lookup" type = "submit" value = "Submit"/>
+           
+        </div>
+​
+        <h1 id = "stock-name"></h1>
+        <h2 id = "stock-price"></h2>
+        <ul id = "ul"></ul>
+​
+        <div id="chartdiv"></div>
+​
+        <div id = "portfolio-buy-page">
+            <select id = "action">
+                <option value = "Buy">Buy</option>
+                <option value = "Sell">Sell</option>
+            </select>
+            <input id = "company-symbol" type = "text" placeholder = "Ticker Symbol">
+            <input id = "quantity" type = "text" placeholder = "Quantity">
+            <input id = "submit-buy" type = "submit" placeholder = "Submit">
+        </div>
+​
+        <div id = "stocks-user-owns-div">
+            <ul id = "stocks-user-owns-ul">
+​
+            </ul>
+            <input id = "add-to-portfolio" type = "submit" value = "Buy/Sell Stock">
+        </div>
+        
+        <!-- This is where the div is for Jun's chatbot //////////////////////////////////////////////////////////// -->
+        <div id = "chatbot-div">
+​
+        </div>
+​
+​       
+        <div id = "container">
+            <canvas id="canvas">Canvas is not supported in your browser.</canvas>
+        </div>
+        <script src ="./index.js"></script>
+    </body>
+</html>
