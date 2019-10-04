@@ -689,3 +689,45 @@ window.onload = loop;
 
 // end of firework // 
 
+let bot = new RiveScript();
+
+const message_container = document.querySelector('.messages');
+const form = document.querySelector('.actions');
+const input_box = document.querySelector('#form-input');
+
+const brains = [
+  'https://gist.githubusercontent.com/jliangDS/90f0daa315fb2a973a485211faafe7ce/raw/420642a80eea626506024aa6bbac2dccf20e4e93/brain.rive'
+];
+
+bot.loadFile(brains).then(botReady).catch(botNotReady);
+
+
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  selfReply(input_box.value);
+  input_box.value = '';
+});
+
+function botReply(message){
+  message_container.innerHTML += `<div class="bot">${message}</div>`;
+  location.href = '#edge';
+}
+
+function selfReply(message){
+  message_container.innerHTML += `<div class="self">${message}</div>`;
+  location.href = '#edge';
+  
+  bot.reply("local-user", message).then(function(reply) {
+    botReply(reply);
+  });
+}
+
+function botReady(){
+  bot.sortReplies();
+  botReply('Hello');
+}
+
+function botNotReady(err){
+  console.log("An error has occurred.", err);
+}
